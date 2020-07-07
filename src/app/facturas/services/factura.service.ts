@@ -8,7 +8,7 @@ import {Factura} from '../models/factura';
 })
 export class FacturaService {
 
-  private urlEndPoint: string = 'http://localhost:8000/api/facturas';
+  private urlEndPoint: string = 'http://localhost:8080/api/facturas';
 
   constructor(private http: HttpClient) { }
 
