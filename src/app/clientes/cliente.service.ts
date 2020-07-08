@@ -58,7 +58,6 @@ export class ClienteService {
           this.router.navigate(['/clientes']);
           console.error(e.error.mensaje);
         }
-
         return throwError(e);
       }));
   }
