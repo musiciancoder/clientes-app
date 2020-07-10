@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Factura} from './models/factura';
 import {ClienteService} from '../clientes/cliente.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, flatMap} from 'rxjs/operators';
@@ -9,6 +9,7 @@ import {FacturaService} from './services/factura.service';
 import {Producto} from './models/producto';
 import {ItemFactura} from './models/item-factura';
 import {MatAutocompleteSelectedEvent} from '@angular/material';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-facturas',
@@ -25,7 +26,8 @@ export class FacturasComponent implements OnInit {
 
   constructor(private  clienteService: ClienteService,
               private facturaService: FacturaService,
-              private activatedRoute: ActivatedRoute
+              private activatedRoute: ActivatedRoute,
+              private  router:Router
   ) {
   }
 
@@ -106,6 +108,15 @@ export class FacturasComponent implements OnInit {
   //al apretar boton eliminar
   eliminarItemFactura(id: number):void{
     this.factura.items = this.factura.items.filter((item: ItemFactura) => id !== item.producto.id);
+  }
+
+
+  create():void{
+    console.log(this.factura);
+    this.facturaService.create(this.factura).subscribe(factura=>{
+    swal(this.titulo, `Factura ${factura.descripcion} creada con éxito!`, 'success');
+    this.router.navigate(['/clientes']);
+    })
   }
 
 }
