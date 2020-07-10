@@ -7,6 +7,8 @@ import {Observable} from 'rxjs';
 import {map, flatMap} from 'rxjs/operators';
 import {FacturaService} from './services/factura.service';
 import {Producto} from './models/producto';
+import {ItemFactura} from './models/item-factura';
+import {MatAutocompleteSelectedEvent} from '@angular/material';
 
 @Component({
   selector: 'app-facturas',
@@ -43,9 +45,21 @@ export class FacturasComponent implements OnInit {
     return this.facturaService.filtrarProductos(filterValue);
   }
 
-  mostrarNombre(producto?: Producto):string | undefined{
+  mostrarNombre(producto?: Producto):string | undefined{ //para mostrar el nombre del producto que hemos seleccionado en la casilla html
     return producto? producto.nombre: undefined;
   }
 
+  seleccionarProducto(event: MatAutocompleteSelectedEvent): void { //para que lo que hemos escrito en el html se reconozca como item en la factura y poder asi mostrar toda la linea (Producto, precio, cantidad, total) en el html
+    let producto = event.option.value as Producto; //pasamos lo que se escibe en formulario a producto
+    console.log(producto);
+
+    let nuevoItem = new ItemFactura();
+    nuevoItem.producto = producto;
+    this.factura.items.push(nuevoItem);
+
+    this.autocompleteControl.setValue(''); //volvemos a dejar en vacio
+    event.option.focus();
+    event.option.deselect();
+  }
 
 }
