@@ -50,6 +50,7 @@ export class FormComponent implements OnInit {
 
   update(): void {
     console.log(this.cliente);
+    this.cliente.facturas = null; // soluciona problema de recursion
     this.clienteService.update(this.cliente)
       .subscribe(
         json => {
