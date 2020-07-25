@@ -4,12 +4,14 @@ import { Region } from './region';
 import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-
+// Prueba
 import { Router } from '@angular/router';
+
+import {URL_BACKEND} from "../config/config";
 
 @Injectable()
 export class ClienteService {
-  private urlEndPoint: string = 'http://localhost:8080/api/clientes';
+  private urlEndPoint: string = URL_BACKEND + '/api/clientes';
 
   constructor(private http: HttpClient, private router: Router) { }
 

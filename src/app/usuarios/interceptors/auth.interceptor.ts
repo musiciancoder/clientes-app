@@ -9,6 +9,7 @@ import swal from 'sweetalert2';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
